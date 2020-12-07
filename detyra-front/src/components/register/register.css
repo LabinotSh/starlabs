@@ -1,0 +1,37 @@
+.signupBtn{
+    margin-left: 20px;
+    background-color: #440524 !important;
+    outline-color: #440524  !important;
+    border-color:#440524  !important;
+    color: #fff !important;
+    margin: 35px 10px;
+    width: 150px;
+    border-radius: 20px;
+    padding: 12px 5px;
+    font-size: medium;
+}
+
+.signupBtn:hover{
+    cursor: pointer;
+    background-color: #610432 !important;
+    outline-color: #610432  !important;
+    border-color:#610432  !important;
+}
+
+.buton-space{
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.back{
+    width: 500px;
+    padding: 1rem;
+    text-align: center;
+    align-items: center;
+    box-sizing: border-box;
+    border: 1px solid #fff;
+    border-radius: 5%;
+    background-color: #f2f6fa;
+    box-shadow: 5px 10px #888888;
+}

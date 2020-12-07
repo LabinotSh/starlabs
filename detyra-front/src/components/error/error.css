@@ -1,0 +1,22 @@
+* {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+  .has-error {
+    border: 1px solid red;
+  }
+  /* css form test */
+  .frm-group {
+    width: 45% !important;
+  }
+  
+  .frm-control {
+    width: 85% !important;
+  }
+  /* css form test END */
+  .form-message {
+    font-size: 14px;
+    font-style: italic;
+    color: red;
+  }
+  

@@ -1,0 +1,45 @@
+.content{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.col2{
+    margin-left: 2rem;
+    margin-top: 3rem;
+}
+
+.ttt{
+    font-size: 30px;
+    font-weight: 600;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: .9rem;
+}
+.descc{
+    font-style: italic;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.btns{
+    display: flex;
+    flex-direction: row;
+}
+
+.add-product{
+    /* background-color: #2c0136 !important; */
+    background-color: white;
+    outline-color: #2c0136 !important;
+    border-color:#2c0136 !important;
+    color: #2c0136 !important;
+    margin: 35px 10px;
+    width: auto;
+    border-radius: 20px;
+    padding: 10px 10px ;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.add-product:hover{
+    background-color: #2c0136 !important;
+    color:#fff !important;
+}
