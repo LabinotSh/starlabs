@@ -48,3 +48,23 @@ exports.deleteOne = async (req,res) => {
 		console.log(error)
 	}
 }
+
+exports.updateOne = async (req,res) => {
+	const {pId} = req.params;
+	const data = req.body;
+
+	Product.findByIdAndUpdate({_id:pId},data, {new:true}, function (err, doc) {
+		if (err) {
+			console.log(err);
+			return res.send({
+				success: false,
+				message: 'Error updating product!',
+			});
+		}
+		return res.send({
+			success: true,
+			newProduct: doc,
+			message: 'Product updated!',
+		});
+	});
+}

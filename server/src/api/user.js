@@ -26,5 +26,17 @@ router.post('/register', userController.register);
 */
 router.post('/login', userController.login);
 
+/**
+* @route PUT api/user/update/:uId
+* @desc  Update a user by id
+*/
+router.put('/update/:uId', userController.updateUser);
+
+/**
+* @route DELETE api/user/remove/:uId
+* @desc  Delete a user by id
+*/
+router.delete('/remove/:uId', userController.deleteUser);
+
 module.exports = router;
 

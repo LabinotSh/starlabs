@@ -68,3 +68,24 @@ exports.login = async (req, res) => {
 		user: user,
 	});
 };
+
+exports.updateUser = async (req, res) => {
+	const uId = req.params.uId;
+	try {
+		const User = await User.findByIdAndUpdate(uId, req.body);
+	} catch (error) {
+		console.log(error);
+	}
+};
+
+exports.deleteUser = async (req, res) => {
+	const { uId } = req.params;
+
+	User.deleteOne({ _id: uId })
+		.then((removed) => {
+			res.json({ message: 'User removed!' });
+		})
+		.catch((error) => {
+			console.log(error);
+		});
+};

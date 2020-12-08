@@ -29,4 +29,10 @@ router.post('/add', validator, validationResult, productController.addProduct);
 */
 router.delete('/remove/:pId', productController.deleteOne);
 
+/**
+* @route PUT api/product/update/:pId
+* @desc  Update a product by id
+*/
+router.put('/update/:pId', productController.updateOne);
+
 module.exports = router;

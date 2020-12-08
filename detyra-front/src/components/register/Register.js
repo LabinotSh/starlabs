@@ -182,7 +182,7 @@ const Register = ({ registering }) => {
 												</Button>
 												{added && (
 													<Link to="/login">
-														<Button className="signupBtn">Log In</Button>
+														<Button className="signupBtn">Sign In</Button>
 													</Link>
 												)}
 											</div>

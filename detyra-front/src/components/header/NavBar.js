@@ -61,7 +61,7 @@ function Navbar({ usr }) {
 								</li>
 							</>
 						)}
-						{(user || usr) && (
+						{(user && usr) && (
 							<li>
 								<Link
 									to="/login"
