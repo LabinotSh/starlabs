@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './login.css';
-import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
+import { Card, Button, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Error from '../error/Error';
@@ -24,6 +24,17 @@ const Login = ({err, loggedIn}) => {
 	const [error, setError] = useState('');
 	
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (err) {
+			setError(err);
+			setTimeout(() => {
+				setError('');
+			}, 5000);
+		} else {
+			setError('');
+		}
+	}, [err]);
     
 	return (
 		< div className="container">
@@ -31,8 +42,8 @@ const Login = ({err, loggedIn}) => {
 				initialValues={{ username: '', password: '' }}
 				validationSchema={validationSchema}
 				onSubmit={(values, { setSubmitting, resetForm }) => {
-                    setSubmitting(true);
-					// handleLogin(values.username, values.password);
+					setSubmitting(true);
+					setLoading(true);
 					dispatch(login(values.username, values.password))
 						.then((response) => {
 							console.log('alaa ' + JSON.stringify(response.user));
@@ -46,27 +57,21 @@ const Login = ({err, loggedIn}) => {
 							setSubmitting(false);
 							setError(err);
 							setLoading(false);
+							// setTimeout(() => {
+								
+							// }, timeout);
 						});		
 				}}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
 					<div className="container-fluid">
-						<div className="row no-gutters">
-							<div className="col-6 float-left">
-								<img
-									className="img-fluid"
-									src={"https://image.freepik.com/free-vector/job-interview-conversation_74855-7566.jpg"}
-									alt="test"
-								/>
-							</div>
+						<div className="row no-gutters">	
 							<div className="col-6">
 								<Card className="text-center cards two">	
-                                {/* <div className="backLogin" > */}
 									<Card.Text style={{ marginBottom: '30px', fontSize: '18px' , color:'#064d9e '}}>
 										Enter your credentials to sign in!
 									</Card.Text>
 									<Form onSubmit={handleSubmit}>
-										{/* {JSON.stringify(values)} */}
 										{error ? <div className="text-danger">{error}</div> : null}
 										<Form.Group controlId="formBasicUsername">
 											<Form.Control
@@ -106,6 +111,13 @@ const Login = ({err, loggedIn}) => {
 										</Link>          
 									</Form>
 								</Card>              
+							</div>
+							<div className="col-6 float-left">
+								<img
+									className="img-fluid"
+									src={"https://image.freepik.com/free-vector/job-interview-conversation_74855-7566.jpg"}
+									alt="test"
+								/>
 							</div>
 						</div>
 					</div>

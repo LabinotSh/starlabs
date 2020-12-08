@@ -3,8 +3,6 @@
 }
 
 .cards {
-     /* height: 500px; */
-     /* width: 500px;  */
     padding-top: 1rem;
     margin-top: 50px;
     justify-content: center;
@@ -13,8 +11,9 @@
     border: none;
     padding: .5rem;
     border-radius: 5%;
-    background-color: #f2f6fa;
+    background-color: #eaecee;
     box-shadow: 7px 9px #7196c0;
+    border: 1px solid #dfd8d8;
 }
 .cards.two{
     margin-right: 5rem;
@@ -40,7 +39,7 @@
     border-top: none;
     border-left: none;
     border-right: none;
-    border-bottom:1px solid black;
+    border-bottom:1px solid #c2c0c0;
   }
 
 .logInBtn {
@@ -51,7 +50,7 @@
     margin: 35px 10px;
     width: 150px;
     border-radius: 20px;
-    padding: 12px 5px;
+    padding: 11px 5px;
     font-size: medium;
 }
 
@@ -70,7 +69,7 @@
     margin: 35px 10px;
     width: 150px;
     border-radius: 20px;
-    padding: 12px 5px;
+    padding: 11px 5px;
     box-shadow: 3px 5px 14px #bebcbc;
     font-size: medium;
 }

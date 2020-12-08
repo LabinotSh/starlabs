@@ -88,28 +88,18 @@ const Register = ({ registering }) => {
 								</div>
 								<div className="col-sm-7 mt-2 text-center">
 									<Card className="text-center c1">
-										<Card.Text
-											style={{
-												marginBottom: '20px',
-												marginTop: '30px',
-												fontSize: '22px',
-												color: '#1f0209',
-												color: '#5e0b19 ',
-											}}
-										>
+										<Card.Text className="signUp-title">
 											<FontAwesomeIcon icon={faUser} size="2x" />{' '}
 											<span style={{ marginLeft: '5px' }}> Sign up! </span>
 										</Card.Text>
 										<Form onSubmit={handleSubmit}>
-											{/* {JSON.stringify(values)} */}
 											{error ? <div className="text-danger">{error}</div> : null}
 											{added ? <div className="text-success">Signed up successfully!</div> : null}
 											<Form.Group controlId="formBasicNname">
 												<Form.Control
 													type="text"
 													name="name"
-													// id="name"
-													placeholder="Your name"
+													placeholder="Enter your first name"
 													onClick={() => {
 														if (error) setError('');
 													}}
@@ -125,7 +115,7 @@ const Register = ({ registering }) => {
 													type="text"
 													name="surname"
 													// id="name"
-													placeholder="Your Last Name"
+													placeholder="Enter your last name"
 													onChange={handleChange}
 													value={values.surname}
 													onBlur={handleBlur}
@@ -138,7 +128,7 @@ const Register = ({ registering }) => {
 													type="text"
 													name="email"
 													// id="name"
-													placeholder="Your Email"
+													placeholder="Enter your email"
 													onChange={handleChange}
 													value={values.email}
 													onBlur={handleBlur}
@@ -151,7 +141,7 @@ const Register = ({ registering }) => {
 													type="text"
 													name="username"
 													// id="name"
-													placeholder="Username"
+													placeholder="Enter your username"
 													onClick={() => {
 														if (error) setError('');
 													}}
@@ -167,7 +157,7 @@ const Register = ({ registering }) => {
 													type="password"
 													name="password"
 													// id="password"
-													placeholder="Password"
+													placeholder="Enter your password"
 													onChange={handleChange}
 													value={values.password}
 													onBlur={handleBlur}
@@ -182,7 +172,7 @@ const Register = ({ registering }) => {
 												</Button>
 												{added && (
 													<Link to="/login">
-														<Button className="signupBtn">Sign In</Button>
+														<Button className="signinBtn">Sign In</Button>
 													</Link>
 												)}
 											</div>

@@ -33,9 +33,7 @@
 
 .allProducts:hover{
     color:#032546;
-    font-weight: 600;
 }
-
 
 .crd {
    margin-top: 30px;
@@ -45,6 +43,7 @@
    border: none;
    padding: .4rem;
    margin-bottom: 60px;
+   background-color: #eaecee;
    border-radius: 5%;
    box-shadow: 5px 10px #032546;
 }
