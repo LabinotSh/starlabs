@@ -47,7 +47,7 @@ function Navbar({ usr }) {
 										Products
 									</Link>
 								</li>
-						{(!user || !usr ) && (
+						{(!usr) && (
 							<>
                 <li>
 							<Link to="/login" className="nav-links" onClick={closeMobileMenu}>

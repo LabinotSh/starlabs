@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const express = require('express');
 const bcrypt = require('bcryptjs');
+const {validateLogin, validateRegister} = require('../middleware/validateForm');
 
 exports.getAllUsers = async (req, res) => {
 	try {
@@ -23,6 +24,10 @@ exports.getOneUser = async (req, res) => {
 };
 
 exports.register = async (req, res) => {
+	//Validate the data form request
+	const { error } = validateRegister(req.body);
+	if (error) return res.status(400).send(error.details[0].message);
+
 	//Check if that email already exists
 	const emailExists = await User.findOne({
 		email: req.body.email,
@@ -56,6 +61,10 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
+	//Validate the data sent from front-end
+	const { error } = validateLogin(req.body);
+	if (error) return res.status(400).send(error.details[0].message);
+
 	const user = await User.findOne({
 		username: req.body.username,
 	});

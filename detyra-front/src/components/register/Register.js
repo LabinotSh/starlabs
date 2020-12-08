@@ -13,7 +13,7 @@ import { connect, useDispatch } from 'react-redux';
 
 const validationSchema = Yup.object().shape({
 	name: Yup.string().required('Name is required'),
-	surname: Yup.string().required('Last name is required!'),
+	// surname: Yup.string().required('Last name is required!'),
 	username: Yup.string()
 		.min(5, 'Must have at least 5 characters')
 		.max(255, 'Must be shorter than 255 characters')
@@ -40,30 +40,33 @@ const Register = ({ registering }) => {
 	return (
 		<div className="container">
 			<Formik
-				initialValues={{ name: '', surname: '', email: '', username: '', password: '' }}
+				initialValues={{ name: '', email: '', username: '', password: '' }}
 				validationSchema={validationSchema}
 				onSubmit={(values, { setSubmitting, resetForm }) => {
+					var fullname = values.name.lastIndexOf(' ');
+				    var name = values.name.substring(0, fullname);
+				    var surname = values.name.substring(fullname + 1);
 					setSubmitting(true);
 					setLoading(true);
-					dispatch(register(values.name, values.surname, values.email, values.username, values.password))
+					dispatch(register(name, surname, values.email, values.username, values.password))
 						.then((response) => {
 							setLoading(false);
 							console.log('User ' + JSON.stringify(response.data));
-							setAdded(true);
-							resetForm();
+							setAdded(true);	
 							notify.show(
 								<div>
 									Signed up successfully!
 									<br />
 									You can sign in now.
-									<button className="btn btn-sm btn-outline-light" onClick={notify.hide}>
+									{/* <button className="btn btn-sm btn-outline-light" onClick={notify.hide}>
 										X
-									</button>
+									</button> */}
 								</div>,
 								'custom',
-								-1,
+								6000,
 								toastColor
 							);
+							resetForm();
 						})
 						.catch((err) => {
 							setLoading(false);
@@ -99,7 +102,7 @@ const Register = ({ registering }) => {
 												<Form.Control
 													type="text"
 													name="name"
-													placeholder="Enter your first name"
+													placeholder="Enter your full name"
 													onClick={() => {
 														if (error) setError('');
 													}}
@@ -110,7 +113,7 @@ const Register = ({ registering }) => {
 												/>
 												<Error touched={touched.name} message={errors.name} />
 											</Form.Group>
-											<Form.Group controlId="formBasicLastName">
+											{/* <Form.Group controlId="formBasicLastName">
 												<Form.Control
 													type="text"
 													name="surname"
@@ -122,12 +125,11 @@ const Register = ({ registering }) => {
 													className={touched.surname && errors.surname ? 'has-error' : null}
 												/>
 												<Error touched={touched.surname} message={errors.surname} />
-											</Form.Group>
+											</Form.Group> */}
 											<Form.Group controlId="formBasicEmail">
 												<Form.Control
 													type="text"
 													name="email"
-													// id="name"
 													placeholder="Enter your email"
 													onChange={handleChange}
 													value={values.email}
@@ -140,7 +142,6 @@ const Register = ({ registering }) => {
 												<Form.Control
 													type="text"
 													name="username"
-													// id="name"
 													placeholder="Enter your username"
 													onClick={() => {
 														if (error) setError('');
@@ -156,7 +157,6 @@ const Register = ({ registering }) => {
 												<Form.Control
 													type="password"
 													name="password"
-													// id="password"
 													placeholder="Enter your password"
 													onChange={handleChange}
 													value={values.password}

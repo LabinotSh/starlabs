@@ -1,14 +1,8 @@
 .Banner{
     background-image: url('https://image.freepik.com/free-vector/abstract-technology-blue-hexagons-pattern-dark-background_78474-669.jpg');
-    background-size: cover;
-    /* background-color:#485; */
-    /* //background-color:  #000; */
+    background-size: cover; 
+    object-fit: cover;
     padding: 1rem; 
-    /* display:flex; 
-    flex-direction:row; */
-    /* //display: flex; */
-    /* color: #283 */
-
 } 
 
 .my-container{

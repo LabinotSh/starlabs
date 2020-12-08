@@ -78,5 +78,5 @@ export const logout = () => (dispatch) => {
 	});
 
 	history.push('/login');
-	window.location.reload(false);
+	//window.location.reload(false);
 };

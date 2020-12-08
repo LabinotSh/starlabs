@@ -7,8 +7,9 @@ import { withRouter } from 'react-router';
 import { Link } from 'react-router-dom';
 import Banner from './productBanner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import { faArrowRight, faCheck } from '@fortawesome/free-solid-svg-icons';
 import Spinner from '../spinner/Spinner';
+import { faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons';
 
 const Products = ({ products, loading }) => {
 	const [list, setList] = useState([]);
@@ -38,8 +39,8 @@ const Products = ({ products, loading }) => {
 				<div className="row ti">
 					<div className="buton">
 						<Link to="/product/add">
-							<Button className="btn btn-info">
-								<FontAwesomeIcon icon={faCheck} /> Add a product
+							<Button className=" addbtn">
+							 Add a product <FontAwesomeIcon icon={faArrowRight} />
 							</Button>
 						</Link>
 					</div>

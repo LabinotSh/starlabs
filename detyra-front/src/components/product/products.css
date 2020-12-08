@@ -3,6 +3,27 @@
     margin-bottom: 1rem;
 }
 .buton{
-    margin-bottom: 1rem;
     align-items: flex-end;
+}
+
+.addbtn{
+    /* margin-left: 20px; */
+    background-color: #5e0b19 !important;
+    outline-color: #5e0b19  !important;
+    border-color:#5e0b19  !important;
+    color: #fff !important;
+    margin: 35px 10px;
+    /* width: 150px; */
+    border-radius: 25px;
+    /* padding: 9px 5px; */
+    padding:.6rem;
+    font-size: medium;
+    cursor: pointer;
+}
+
+.addbtn:hover{
+    cursor: pointer;
+    background-color: #be1d38 !important;
+    outline-color: #be1d38  !important;
+    border-color:#be1d38  !important;
 }
