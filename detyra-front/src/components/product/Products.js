@@ -8,14 +8,13 @@ import { Link } from 'react-router-dom';
 import Banner from './productBanner';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck } from '@fortawesome/free-solid-svg-icons';
+import Spinner from '../spinner/Spinner';
 
 const Products = ({ products, loading }) => {
 	const [list, setList] = useState([]);
 	const [load, setLoading] = useState(false);
 
     const dispatch = useDispatch();
-
-    const DATE_OPTIONS = { weekday: 'short', year: 'numeric', month: 'short', day: 'numeric' };
 
 	const fetchProducts = () => {
 		dispatch(getAll());
@@ -31,6 +30,7 @@ const Products = ({ products, loading }) => {
 		}
 	}, [products]);
 
+    if(loading) return <Spinner />; 
 	return (
 		<>
 			<Banner />
