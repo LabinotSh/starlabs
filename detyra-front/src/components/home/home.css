@@ -1,12 +1,11 @@
-.content{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+
+.img-fluid{
+    height: 65vh;
+    margin-top: 2rem;
 }
 
 .col2{
-    margin-left: 2rem;
-    margin-top: 3rem;
+    margin-top: 5rem;
 }
 
 .ttt{

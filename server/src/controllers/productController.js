@@ -25,11 +25,26 @@ exports.addProduct = async (req, res, next) => {
 			title: req.body.title,
 			price: req.body.price,
 			stock: req.body.stock,
+			publish_date: req.body.publish_date
 		});
-
 		const savedProduct = await newProduct.save();
-		res.json(savedProduct);
+
+		const products = await Product.find();
+		res.json(products);
 	} catch (error) {
 		console.log(error);
 	}
 };
+
+
+exports.deleteOne = async (req,res) => {
+	const pId = req.params.pId
+	try {
+		const product = await Product.deleteOne({_id: pId})
+		if(product){
+			res.json({message:'Product deleted!'})
+		}	
+	} catch (error) {
+		console.log(error)
+	}
+}

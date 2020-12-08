@@ -4,23 +4,24 @@
 
 .cards {
      /* height: 500px; */
-     width: 400; 
+     /* width: 500px;  */
+    padding-top: 1rem;
     margin-top: 50px;
-    display: flex;
-    /* flex-flow: row; */
     justify-content: center;
     align-items: center;
     align-self: center;
     border: none;
-    padding: .8rem;
-    /* background-color: azure; */
+    padding: .5rem;
+    border-radius: 5%;
+    background-color: #f2f6fa;
+    box-shadow: 7px 9px #7196c0;
 }
 .cards.two{
     margin-right: 5rem;
 }
-.cards.one{
+.one{
     /* margin-bottom: 5rem; */
-    margin-right: 6rem;
+    margin-right: 1rem;
 }
 
 .title {
@@ -31,7 +32,7 @@
 }
 
 .form-control {
-    height: 50px;
+    /* height: 40px; */
     border-radius: 0;
     width: 350px;
     margin: .5rem;
@@ -43,9 +44,9 @@
   }
 
 .logInBtn {
-    background-color: #1f0209 !important;
-    outline-color: #1f0209 !important;
-    border-color:#1f0209 !important;
+    background-color: #064d9e !important;
+    outline-color:  #7196c0 !important;
+    border-color: #7196c0 !important;
     color: #fff !important;
     margin: 35px 10px;
     width: 150px;
@@ -63,9 +64,9 @@
 
 .registerBtn {
     background-color: white;
-    color: #00132A;
-    outline-color:#00132A;
-    border-color:white;
+    color: #064d9e ;
+    outline-color:#064d9e ;
+    border-color:#064d9e ;
     margin: 35px 10px;
     width: 150px;
     border-radius: 20px;
@@ -75,22 +76,16 @@
 }
 
 .registerBtn:hover{
-    background-color: #F7A366 !important;
-    outline-color: #F7A366 !important;
-    border-color:#F7A366 !important;
+    background-color: #064d9e !important;
+    outline-color: #064d9e !important;
+    border-color:#064d9e !important;
+    color:#fff !important;
     cursor: pointer;
 }
 
-/* .two:before {
-    content: "";
-    display: block;
-    width: 70%;
-    padding-top: 30px;
-    border-top: 2px solid red;
-  } */
-  
 .registerBtn:focus {
     background-color: #f77e27 !important;
     outline-color: #f77e27 !important;
     border-color:#f77e27 !important;
 }
+

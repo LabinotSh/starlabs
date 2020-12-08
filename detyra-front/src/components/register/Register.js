@@ -5,10 +5,11 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Error from '../error/Error';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
-import axios from 'axios';
-import {API_URL} from '../../constants/constants';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 import Notifications, { notify } from 'react-notify-toast';
+import { Link, withRouter } from 'react-router-dom';
+import { register } from '../../redux/actions/auth';
+import { connect, useDispatch } from 'react-redux';
 
 const validationSchema = Yup.object().shape({
 	name: Yup.string().required('Name is required'),
@@ -27,33 +28,14 @@ const validationSchema = Yup.object().shape({
 		.required('Password is required'),
 });
 
-const Register = () => {
+const Register = ({ registering }) => {
 	const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+	const [error, setError] = useState('');
+	const [added, setAdded] = useState(false);
 
-    let toastColor = { background: '#6279AB', text: '#FFFFFF' };
-    
-    const handleRegister = (name, lname, email, username, pw) => {
-        axios.post(API_URL+'/user/register', {name, lname, email, username, pw})
-        .then(response => {
-            setLoading(false);
-            console.log('User ' + JSON.stringify(response.data));
-            notify.show(
-                <div>
-                    Signed up successfully!
-                    <button className="btn btn-sm btn-outline-light" onClick={notify.hide}>
-                        Close
-                    </button>
-                </div>,
-                'custom',
-                -1,
-                toastColor
-            );
-        }).catch(err => {
-            setLoading(false);
-            console.log(err);
-        })
-    }
+	const dispatch = useDispatch();
+
+	let toastColor = { background: '#6279AB', text: '#FFFFFF' };
 
 	return (
 		<div className="container">
@@ -61,35 +43,67 @@ const Register = () => {
 				initialValues={{ name: '', surname: '', email: '', username: '', password: '' }}
 				validationSchema={validationSchema}
 				onSubmit={(values, { setSubmitting, resetForm }) => {
-                    setSubmitting(true);
-                    handleRegister(values.name, values.surname, values.email, values.username, values.password)      
+					setSubmitting(true);
+					setLoading(true);
+					dispatch(register(values.name, values.surname, values.email, values.username, values.password))
+						.then((response) => {
+							setLoading(false);
+							console.log('User ' + JSON.stringify(response.data));
+							setAdded(true);
+							resetForm();
+							notify.show(
+								<div>
+									Signed up successfully!
+									<br />
+									You can sign in now.
+									<button className="btn btn-sm btn-outline-light" onClick={notify.hide}>
+										X
+									</button>
+								</div>,
+								'custom',
+								-1,
+								toastColor
+							);
+						})
+						.catch((err) => {
+							setLoading(false);
+							setAdded(false);
+							resetForm();
+							console.log(err);
+						});
 				}}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-					<Container>
-                       <Notifications options={{ top: '10px' }} />
-						<Row noGutters={true}>
-							<Col sm={4} lg={5}>
-                            </Col>
-							<Col sm={6} lg={6}>
-								<Card className="text-center cards two">
-									<div className="back">
-                                    <Card.Text
+					<>
+						<Notifications options={{ top: '10px' }} />
+						<div className="container-fluid">
+							<div className="row no-gutters">
+								<div className="col-sm-5 mt-5">
+									<img
+										className="img-fluid"
+										src={
+											'https://image.freepik.com/free-vector/work-time-concept-illustration_114360-1074.jpg'
+										}
+									/>
+								</div>
+								<div className="col-sm-7 mt-2 text-center">
+									<Card className="text-center c1">
+										<Card.Text
 											style={{
-                                                marginBottom: '30px',
+												marginBottom: '20px',
+												marginTop: '30px',
 												fontSize: '22px',
 												color: '#1f0209',
-                                                textDecoration: 'underline',
-                                                color:'#440524 '
+												color: '#5e0b19 ',
 											}}
 										>
-											<FontAwesomeIcon icon={faUser} size='2x' /> <span style={{marginLeft:'5px'}}> Sign up! </span>
+											<FontAwesomeIcon icon={faUser} size="2x" />{' '}
+											<span style={{ marginLeft: '5px' }}> Sign up! </span>
 										</Card.Text>
-                                        
-
 										<Form onSubmit={handleSubmit}>
 											{/* {JSON.stringify(values)} */}
 											{error ? <div className="text-danger">{error}</div> : null}
+											{added ? <div className="text-success">Signed up successfully!</div> : null}
 											<Form.Group controlId="formBasicNname">
 												<Form.Control
 													type="text"
@@ -164,19 +178,29 @@ const Register = () => {
 											<div className="buton-space text-center">
 												{loading && <span className="spinner-border spinner-border-sm"></span>}
 												<Button className="signupBtn" type="submit" disabled={loading}>
-													Register
+													Sign Up
 												</Button>
+												{added && (
+													<Link to="/login">
+														<Button className="signupBtn">Log In</Button>
+													</Link>
+												)}
 											</div>
 										</Form>
-									</div>
-								</Card>
-							</Col>
-						</Row>
-					</Container>
+									</Card>
+								</div>
+							</div>
+						</div>
+					</>
 				)}
 			</Formik>
 		</div>
 	);
 };
 
-export default Register;
+const mapStateToProps = (state) => ({
+	err: state.login.error,
+	registering: state.login.registering,
+});
+
+export default connect(mapStateToProps, { register })(withRouter(Register));

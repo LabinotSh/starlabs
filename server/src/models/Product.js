@@ -13,12 +13,10 @@ const productSchema = new mongoose.Schema({
         type: Number,
         default: 0
     },
-    //There is no need to add a certain field for publish date since mongoose adds it by itself
-    //By adding timestamps as true
-    // publish_Date: {
-    //     type: Date,
-    //     required: true
-    // }
+    publish_date: {
+        type: Date,
+        required: true
+    }
 }, {
     timestamps: true
 })

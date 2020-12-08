@@ -1,8 +1,8 @@
 .signupBtn{
     margin-left: 20px;
-    background-color: #440524 !important;
-    outline-color: #440524  !important;
-    border-color:#440524  !important;
+    background-color: #5e0b19 !important;
+    outline-color: #5e0b19  !important;
+    border-color:#5e0b19  !important;
     color: #fff !important;
     margin: 35px 10px;
     width: 150px;
@@ -13,9 +13,9 @@
 
 .signupBtn:hover{
     cursor: pointer;
-    background-color: #610432 !important;
-    outline-color: #610432  !important;
-    border-color:#610432  !important;
+    background-color: #be1d38 !important;
+    outline-color: #be1d38  !important;
+    border-color:#be1d38  !important;
 }
 
 .buton-space{
@@ -24,14 +24,21 @@
     text-align: center;
 }
 
-.back{
-    width: 500px;
-    padding: 1rem;
-    text-align: center;
+.c1{
+    width:100vh;
+    margin-top: 1rem;
     align-items: center;
+    justify-content: center;
     box-sizing: border-box;
     border: 1px solid #fff;
-    border-radius: 5%;
+    border-radius: 10%;
     background-color: #f2f6fa;
-    box-shadow: 5px 10px #888888;
+    box-shadow: 5px 10px  #5e0b19;
+    margin-bottom: 4rem;
+}
+
+.text-success{
+    color: forestgreen;
+    font-size: medium;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }

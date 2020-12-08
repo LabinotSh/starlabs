@@ -4,32 +4,27 @@ import { Container, Row, Col, Card, Button, Form } from 'react-bootstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Error from '../error/Error';
-import { Link, withRouter } from 'react-router-dom';
-import axios from 'axios';
-import { API_URL } from '../../constants/constants';
+import { Link, Redirect, withRouter } from 'react-router-dom';
+import {login} from '../../redux/actions/auth';
+import { connect, useDispatch } from 'react-redux';
 
 const validationSchema = Yup.object().shape({
 	username: Yup.string()
-		.min(5, 'Must have at least 4 characters')
+		.min(5, 'Must have at least 5 characters')
 		.max(255, 'Must be shorter than 255 characters')
 		.required('Username is required'),
 	password: Yup.string()
-		.min(8, 'Must have at least 5 characters')
+		.min(8, 'Must have at least 8 characters')
 		.max(255, 'Must be shorter than 255 characters')
 		.required('Password is required'),
 });
 
-const Login = () => {
+const Login = ({err, loggedIn}) => {
 	const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+	const [error, setError] = useState('');
+	
+	const dispatch = useDispatch();
     
-    const handleLogin  = (username, password) => {
-        axios.post(API_URL+'/user/login', {username, password})
-        .then(response => {
-            console.log('User ' + JSON.stringify(response.data))
-        }).catch(err => console.log(err))
-    }
-
 	return (
 		< div className="container">
 			<Formik
@@ -37,23 +32,37 @@ const Login = () => {
 				validationSchema={validationSchema}
 				onSubmit={(values, { setSubmitting, resetForm }) => {
                     setSubmitting(true);
-                    handleLogin(values.username, values.password);
-					
+					// handleLogin(values.username, values.password);
+					dispatch(login(values.username, values.password))
+						.then((response) => {
+							console.log('alaa ' + JSON.stringify(response.user));
+							setSubmitting(true);
+							setLoading(false);
+							setError('');
+						})
+						.catch((error) => {
+							resetForm();
+							console.log('Error: ' + error);
+							setSubmitting(false);
+							setError(err);
+							setLoading(false);
+						});		
 				}}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting }) => (
-					<Container>
-						<Row noGutters={true}>
-                            {/* <Col sm={4} xs={4}></Col> */}
-							<Col sm={12} md={12}>
-                                
-								<Card className="text-center cards two">
-                                <Card className="text-center cards one">
-									{/* Background Image goes here */}
-									<Card.Img src={"https://image.freepik.com/free-vector/job-interview-conversation_74855-7566.jpg"} alt="test"></Card.Img>
-								</Card>
-                                <div className="back" >
-									<Card.Text style={{ marginBottom: '30px', fontSize: '18px' , color:'#1f0209'}}>
+					<div className="container-fluid">
+						<div className="row no-gutters">
+							<div className="col-6 float-left">
+								<img
+									className="img-fluid"
+									src={"https://image.freepik.com/free-vector/job-interview-conversation_74855-7566.jpg"}
+									alt="test"
+								/>
+							</div>
+							<div className="col-6">
+								<Card className="text-center cards two">	
+                                {/* <div className="backLogin" > */}
+									<Card.Text style={{ marginBottom: '30px', fontSize: '18px' , color:'#064d9e '}}>
 										Enter your credentials to sign in!
 									</Card.Text>
 									<Form onSubmit={handleSubmit}>
@@ -94,22 +103,22 @@ const Login = () => {
 										</Button>
 										<Link to="/register">
 											<Button className="registerBtn">Create an account</Button>
-										</Link>
-                                    
+										</Link>          
 									</Form>
-                                    </div>
-                                  
-								</Card>    
-                                
-							</Col>
-						</Row>
-					</Container>
+								</Card>              
+							</div>
+						</div>
+					</div>
 				)}
 			</Formik>
 		</ div>
 	);
 };
 
+const mapStateToProps = (state) => ({
+	loggedIn: state.login.isLoggedIn,
+	err: state.login.error,
+});
 
-export default Login;
+export default connect(mapStateToProps, {login})(withRouter(Login));
 
