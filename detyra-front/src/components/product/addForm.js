@@ -34,7 +34,7 @@ const AddProduct = ({ err, add }) => {
 			setSuccess(add);
 			setTimeout(() => {
 				setSuccess(false);
-			}, 4000);
+			}, 5000);
 		} else {
 			setSuccess(false);
 		}
@@ -58,7 +58,7 @@ const AddProduct = ({ err, add }) => {
 				validationSchema={validationSchema}
 				onSubmit={(values, { setSubmitting, resetForm }) => {
 					setSubmitting(true);
-					//addProduct(values.title, values.price, values.stock, values.date);
+					setLoading(true);
 					dispatch(addProduct(values.title, values.price, values.stock, values.date))
 						.then((response) => {
 							console.log(JSON.stringify(response.data));
@@ -80,6 +80,7 @@ const AddProduct = ({ err, add }) => {
 						})
 						.catch((error) => {
 							console.log(error);
+							setLoading(false);
 							setTimeout(() => {
 								resetForm();
 							}, 3000);
@@ -87,93 +88,95 @@ const AddProduct = ({ err, add }) => {
 				}}
 			>
 				{({ values, errors, touched, handleChange, handleBlur, handleSubmit, isSubmitting, setFieldValue }) => (
-					<div className="container-fluid">
+					<>
 						<Notifications options={{ top: '10px' }} />
-						<div className="row mb-5">
-							<div className="col-5">
-								<img
-									className="img-fluid"
-									src={
-										'https://image.freepik.com/free-vector/news-concept-landing-page_52683-20699.jpg'
-									}
-									alt="test"
-								/>
-							</div>
-							<div className="col-7">
-								<Card className="text-center crd s1">
-									<Card.Text style={{ marginBottom: '30px', fontSize: '18px', color: '#024d94' }}>
-										<FontAwesomeIcon icon={faCircle} /> Add a new product
-									</Card.Text>
-									{error && <Card.Text className="text-danger">{error}</Card.Text>}
-									{success && (
-										<Card.Text className="text-success">
-											<FontAwesomeIcon icon={faCheck} /> Product added in the product list!
+						<div className="container-fluid">
+							<div className="row mb-5">
+								<div className="col-5">
+									<img
+										className="img-fluid"
+										src={
+											'https://image.freepik.com/free-vector/news-concept-landing-page_52683-20699.jpg'
+										}
+										alt="test"
+									/>
+								</div>
+								<div className="col-7">
+									<Card className="text-center crd s1">
+										<Card.Text style={{ marginBottom: '30px', fontSize: '18px', color: '#024d94' }}>
+											<FontAwesomeIcon icon={faCircle} /> Add a new product
 										</Card.Text>
-									)}
-									<Form onSubmit={handleSubmit}>
-										<Form.Group controlId="formBasicTitle">
-											<Form.Control
-												type="text"
-												name="title"
-												placeholder="Enter the title for the product"
-												onChange={handleChange}
-												value={values.title}
-												onBlur={handleBlur}
-												className={touched.title && errors.title ? 'has-error' : null}
-											/>
-											<Error touched={touched.title} message={errors.title} />
-										</Form.Group>
-										<Form.Group controlId="formBasicPrice">
-											<Form.Control
-												type="text"
-												name="price"
-												placeholder="Enter the price of the product"
-												onChange={handleChange}
-												value={values.price}
-												onBlur={handleBlur}
-												className={touched.price && errors.price ? 'has-error' : null}
-											/>
-											<Error touched={touched.price} message={errors.price} />
-										</Form.Group>
-										<Form.Group controlId="formBasicStock">
-											<Form.Control
-												type="text"
-												name="stock"
-												placeholder="Nr. of products in stock"
-												onChange={handleChange}
-												value={values.stock}
-												onBlur={handleBlur}
-												className={touched.stock && errors.stock ? 'has-error' : null}
-											/>
-											<Error touched={touched.stock} message={errors.stock} />
-										</Form.Group>
-										<Form.Group>
-											<Form.Label title="Title" className="lbl">
-												Publish Date:{' '}
-											</Form.Label>
-											<DatePicker
-												name="date"
-												dateFormat="d MMMM, yyyy"
-												selected={values.date}
-												onChange={(date) => setFieldValue('date', date)}
-												className={touched.date && errors.date ? 'has-error' : null}
-											/>
-											<Error touched={touched.date} message={errors.date} />
-										</Form.Group>
-										{loading && <span className="spinner-border spinner-border-sm"></span>}
-										<Button className="addBtn" type="submit" disabled={loading}>
-											Add a product
-										</Button>
-										<Link to="/products">
-											<Button className="allProducts">
-												<FontAwesomeIcon icon={faAlignJustify} /> View products
+										{error && <Card.Text className="text-danger">{error}</Card.Text>}
+										{success && (
+											<Card.Text className="text-success">
+												<FontAwesomeIcon icon={faCheck} /> Product added in the product list!
+											</Card.Text>
+										)}
+										<Form onSubmit={handleSubmit}>
+											<Form.Group controlId="formBasicTitle">
+												<Form.Control
+													type="text"
+													name="title"
+													placeholder="Enter the title for the product"
+													onChange={handleChange}
+													value={values.title}
+													onBlur={handleBlur}
+													className={touched.title && errors.title ? 'has-error' : null}
+												/>
+												<Error touched={touched.title} message={errors.title} />
+											</Form.Group>
+											<Form.Group controlId="formBasicPrice">
+												<Form.Control
+													type="text"
+													name="price"
+													placeholder="Enter the price of the product"
+													onChange={handleChange}
+													value={values.price}
+													onBlur={handleBlur}
+													className={touched.price && errors.price ? 'has-error' : null}
+												/>
+												<Error touched={touched.price} message={errors.price} />
+											</Form.Group>
+											<Form.Group controlId="formBasicStock">
+												<Form.Control
+													type="text"
+													name="stock"
+													placeholder="Nr. of products in stock"
+													onChange={handleChange}
+													value={values.stock}
+													onBlur={handleBlur}
+													className={touched.stock && errors.stock ? 'has-error' : null}
+												/>
+												<Error touched={touched.stock} message={errors.stock} />
+											</Form.Group>
+											<Form.Group>
+												<Form.Label title="Title" className="lbl">
+													Publish Date:{' '}
+												</Form.Label>
+												<DatePicker
+													name="date"
+													dateFormat="d MMMM, yyyy"
+													selected={values.date}
+													onChange={(date) => setFieldValue('date', date)}
+													className={touched.date && errors.date ? 'has-error' : null}
+												/>
+												<Error touched={touched.date} message={errors.date} />
+											</Form.Group>
+											{loading && <span className="spinner-border spinner-border-sm"></span>}
+											<Button className="addBtn" type="submit" disabled={loading}>
+												Add a product
 											</Button>
-										</Link>
-									</Form>
-								</Card>
+											<Link to="/products">
+												<Button className="allProducts">
+													<FontAwesomeIcon icon={faAlignJustify} /> View products
+												</Button>
+											</Link>
+										</Form>
+									</Card>
+								</div>
 							</div>
 						</div>
-					</div>
+					</>
 				)}
 			</Formik>
 		</>
